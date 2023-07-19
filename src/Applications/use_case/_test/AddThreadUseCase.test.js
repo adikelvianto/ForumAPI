@@ -17,7 +17,7 @@ describe('AddThreadUseCase', () => {
       id: 'thread-123',
       title: useCasePayload.title,
       body: useCasePayload.body,
-      date: '2023-7-18T16:00:00.000Z',
+      date: '2023-07-18T16:00:00.000Z',
       owner: useCasePayload.owner,
     });
 
@@ -30,7 +30,7 @@ describe('AddThreadUseCase', () => {
         id: 'thread-123',
         title: useCasePayload.title,
         body: useCasePayload.body,
-        date: '2023-7-18T16:00:00.000Z',
+        date: '2023-07-18T16:00:00.000Z',
         owner: useCasePayload.owner,
       }),
     ));
