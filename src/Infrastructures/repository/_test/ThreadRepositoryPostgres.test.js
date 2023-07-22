@@ -103,4 +103,41 @@ describe('ThreadRepositoryPostgres', () => {
       await expect(threadRepositoryPostgres.verifyAvailableThread('thread-123')).resolves.not.toThrowError(NotFoundError);
     });
   });
+
+  describe('getThreadById function', () => {
+
+    it('should throw NotFoundError when requested thread is not found', async () => {
+      // Arrange
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      await expect(threadRepositoryPostgres.getThreadById('thread-555')).rejects.toThrowError(NotFoundError);
+    });
+
+    it('should return requested thread correctly', async () => {
+      // Arrange
+      await UserTableTestHelper.addUser({
+        username: 'dicoding',
+        password: 'supersecretpassword',
+      });
+
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
+      await ThreadTableTestHelper.addThread({
+        id: 'thread-123',
+      });
+
+      // Action
+      const thread = await threadRepositoryPostgres.getThreadById('thread-123');
+
+      // Assert
+      expect(thread).toStrictEqual({
+        id: 'thread-123',
+        title: 'A new thread',
+        body: 'The body of a new thread',
+        date: new Date('2023-07-18T16:00:00.000Z'),
+        username: 'dicoding',
+      });
+    });
+  });
+
 });

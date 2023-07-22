@@ -115,4 +115,43 @@ describe('/threads endpoint', () => {
       expect(responseJson.data.addedThread).toBeDefined();
     });
   });
+
+  describe('when GET /threads/{threadId}', () => {
+    it('should respond with 200 and details of the thread', async () => {
+      // Arrange
+      const threadId = 'thread-123';
+      await UsersTableTestHelper.addUser({ id: 'user-abc' });
+      await ThreadTableTestHelper.addThread({ id: threadId });
+      const server = await createServer(container);
+
+      // Action
+      const response = await server.inject({
+        method: 'GET',
+        url: `/threads/${threadId}`,
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.thread).toBeDefined();
+    });
+
+    it('should respond with NotFoundError when the requested thread is not found', async () => {
+      // Arrange
+      const server = await createServer(container);
+
+      // Action
+      const response = await server.inject({
+        method: 'GET',
+        url: '/threads/thread-555',
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(404);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toEqual('Thread not found');
+    });
+  });
 });
