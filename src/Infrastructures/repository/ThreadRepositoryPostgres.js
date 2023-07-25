@@ -37,8 +37,6 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     if (!rowCount) {
       throw new NotFoundError('Thread not found');
     }
-
-    return rowCount;
   }
 
   async getThreadById(threadId) {

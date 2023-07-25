@@ -56,7 +56,7 @@ class CommentRepositoryPostgres extends CommentRepository {
     return rows;
   }
 
-  async verifyAvailableCommentInThread(commentId, threadId) {
+  async verifyAvailableCommentInsideThread(commentId, threadId) {
     const query = {
       text: 'SELECT 1 FROM comments WHERE id = $1 AND thread_id = $2',
       values: [commentId, threadId],
@@ -82,8 +82,6 @@ class CommentRepositoryPostgres extends CommentRepository {
     if (!rowCount) {
       throw new NotFoundError('Komentar tidak dapat ditemukan');
     }
-
-    return rowCount;
   }
 }
 

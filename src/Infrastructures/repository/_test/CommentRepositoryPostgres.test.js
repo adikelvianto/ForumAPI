@@ -44,7 +44,10 @@ describe('CommentRepositoryPostgres', () => {
         content: newComment.content,
         owner: newComment.owner,
       }));
-      expect(comments).toHaveLength(1);
+      expect(comments).toHaveLength(1); 
+      expect(comments[0].id).toBe('comment-123');
+      expect(comments[0].content).toBe(newComment.content);
+      expect(comments[0].owner).toBe(newComment.owner);
     });
 
     it('should return the added comment correctly', async () => {
@@ -131,10 +134,10 @@ describe('CommentRepositoryPostgres', () => {
     });
   });
 
-  describe('verifyAvailableCommentInThread function', () => {
+  describe('verifyAvailableCommentInsideThread function', () => {
     it('should throw NotFoundError when comment is not exist in a thread or the thread is not exist', async () => {
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {}, {});
-      await expect(commentRepositoryPostgres.verifyAvailableCommentInThread('thread-123', 'comment-123')).rejects.toThrowError(NotFoundError);
+      await expect(commentRepositoryPostgres.verifyAvailableCommentInsideThread('thread-123', 'comment-123')).rejects.toThrowError(NotFoundError);
     });
 
     it('should not throw NotFoundError when thread and related comment exist', async () => {
@@ -144,7 +147,7 @@ describe('CommentRepositoryPostgres', () => {
         date: new Date('2023-07-18T16:00:00.000Z'),
       });
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {}, {});
-      await expect(commentRepositoryPostgres.verifyAvailableCommentInThread('comment-123', 'thread-123')).resolves.not.toThrowError(NotFoundError);
+      await expect(commentRepositoryPostgres.verifyAvailableCommentInsideThread('comment-123', 'thread-123')).resolves.not.toThrowError(NotFoundError);
     });
   });
 

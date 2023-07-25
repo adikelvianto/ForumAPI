@@ -12,7 +12,7 @@ describe('DomainErrorTranslator', () => {
     expect(DomainErrorTranslator.translate(new Error('REGISTER_USER.USERNAME_CONTAIN_RESTRICTED_CHARACTER')))
       .toStrictEqual(new InvariantError('tidak dapat membuat user baru karena username mengandung karakter terlarang'));
     expect(DomainErrorTranslator.translate(new Error('NEW_THREAD.MISSING_REQUIRED_PROPERTIES')))
-      .toStrictEqual(new InvariantError('NEW_THREAD.MISSING_REQUIRED_PROPERTIES'));
+      .toStrictEqual(new InvariantError('Thread baru tidak dapat dibuat karena property yang dibutuhkan tidak lengkap'));
     expect(DomainErrorTranslator.translate(new Error('NEW_THREAD.INVALID_DATA_TYPES')))
       .toStrictEqual(new InvariantError('Thread baru tidak dapat dibuat karena tipe data yang dilampirkan tidak sesuai'));
     expect(DomainErrorTranslator.translate(new Error('NEW_COMMENT.MISSING_REQUIRED_PROPERTIES')))
