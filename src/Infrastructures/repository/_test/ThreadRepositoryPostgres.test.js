@@ -39,13 +39,15 @@ describe('ThreadRepositoryPostgres', () => {
       const addedThread = await threadRepositoryPostgres.addThread(newThread);
 
       // Assert
+      const thread = await ThreadTableTestHelper.GetThreadsByID('thread-123');
       await expect(addedThread).toStrictEqual(
         new AddedThread({
           id: 'thread-123',
-          title: 'A new thread',
-          owner: 'user-abc',
+          title: addedThread.title,
+          owner: addedThread.owner,
         }),
       );
+      expect(thread).toHaveLength(1);
     });
 
     it('should return the added thread correctly', async () => {

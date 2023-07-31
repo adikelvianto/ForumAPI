@@ -10,12 +10,14 @@ describe('DeleteCommentUseCase', () => {
       owner: 'user-abc',
     };
 
+    const verifyOwnerlength = 1; 
+
     // Create the mock comment repository
     const mockCommentRepository = new CommentRepository();
 
     // Mock dependencies
     mockCommentRepository.verifyAvailableCommentInsideThread = jest.fn().mockImplementation(() => Promise.resolve());
-    mockCommentRepository.verifyCommentOwner = jest.fn().mockImplementation(() => Promise.resolve());
+    mockCommentRepository.verifyCommentOwner = jest.fn().mockImplementation(() => Promise.resolve(verifyOwnerlength));
     mockCommentRepository.deleteCommentById = jest.fn().mockImplementation(() => Promise.resolve());
 
     const deleteCommentUseCase = new DeleteCommentUseCase({

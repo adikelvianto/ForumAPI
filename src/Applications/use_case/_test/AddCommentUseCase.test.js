@@ -16,8 +16,6 @@ describe('AddCommentUseCase', () => {
     const expectedAddedComment = new AddedComment({
       id: 'comment-123',
       content: useCasePayload.content,
-      threadId: useCasePayload.threadId,
-      date: '2023-07-18T16:00:00.000Z',
       owner: useCasePayload.owner,
     });
 
@@ -31,8 +29,6 @@ describe('AddCommentUseCase', () => {
       new AddedComment({
         id: 'comment-123',
         content: useCasePayload.content,
-        threadId: useCasePayload.threadId,
-        date: '2023-07-18T16:00:00.000Z',
         owner: useCasePayload.owner,
       }),
     ));

@@ -38,8 +38,6 @@ class CommentRepositoryPostgres extends CommentRepository {
     if (!rowCount) {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
-
-    return rowCount;
   }
 
   async getCommentsByThreadId(threadId) {
@@ -67,8 +65,6 @@ class CommentRepositoryPostgres extends CommentRepository {
     if (!rowCount) {
       throw new NotFoundError('Komentar pada thread ini tidak dapat ditemukan');
     }
-
-    return rowCount;
   }
 
   async deleteCommentById(commentId) {

@@ -80,8 +80,7 @@ describe('CommentRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123';
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
       await commentRepositoryPostgres.addComment(newComment);
-      const isCommentOwner = await commentRepositoryPostgres.verifyCommentOwner('comment-123', 'user-abc');
-      expect(isCommentOwner).toStrictEqual(1);
+      await commentRepositoryPostgres.verifyCommentOwner('comment-123', 'user-abc');
     });
     
     it('should return Authorization error when founded difference between comment owner', async () => {
@@ -99,32 +98,49 @@ describe('CommentRepositoryPostgres', () => {
 
   describe('getCommentByThreadId function', () => {
     it('should return all comments from related thread', async () => {
+
+      const threadId = 'thread-123'
+
       const firstComment = {
         id: 'comment-123',
         content: 'A sample comment',
         date: new Date('2023-07-18T16:00:00.000Z'),
+        owner: 'user-abc',
+        thread_id: threadId,
       };
       const secondComment = {
         id: 'comment-456',
         content: 'Another sample comment',
         date: new Date('2023-07-19T03:00:00.000Z'),
+        owner: 'user-abc',
+        thread_id: threadId,
       };
+
       await CommentsTableTestHelper.addComment(firstComment);
       await CommentsTableTestHelper.addComment(secondComment);
-      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {}, {});
 
-      let commentDetails = await commentRepositoryPostgres.getCommentsByThreadId('thread-123');
-      commentDetails = commentDetails.map((comment) => ({
-        id: comment.id,
-        content: comment.content,
-        date: comment.date,
-        username: comment.username,
-      }));
+      const fakeIdGenerator = () => '123';
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
-      expect(commentDetails).toEqual([
-        { ...firstComment, username: 'dicoding' },
-        { ...secondComment, username: 'dicoding' },
-      ]);
+      
+
+      commentDetails = await commentRepositoryPostgres.getCommentsByThreadId(threadId);
+      
+      expect(commentDetails).toHaveLength(2);
+      expect(commentDetails[0].id).toEqual('comment-123');
+      expect(commentDetails[0].content).toEqual('A sample comment');
+      expect(commentDetails[0].date).toEqual(new Date('2023-07-18T16:00:00.000Z'));
+      expect(commentDetails[0].username).toEqual('dicoding');
+      expect(commentDetails[0].is_deleted).toEqual(false);
+      expect(commentDetails[0].owner).toEqual('user-abc');
+      expect(commentDetails[0].thread_id).toEqual(threadId);
+      expect(commentDetails[1].id).toEqual('comment-456');
+      expect(commentDetails[1].content).toEqual('Another sample comment');
+      expect(commentDetails[1].date).toEqual(new Date('2023-07-19T03:00:00.000Z'));
+      expect(commentDetails[1].username).toEqual('dicoding');
+      expect(commentDetails[1].is_deleted).toEqual(false);
+      expect(commentDetails[1].owner).toEqual('user-abc');
+      expect(commentDetails[1].thread_id).toEqual(threadId);
     });
 
     it('should return an empty list when there is no comment inside a thread', async () => {

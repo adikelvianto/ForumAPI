@@ -10,5 +10,6 @@ describe('CommentRepository interface', () => {
     await expect(commentRepository.verifyCommentOwner('', '')).rejects.toThrowError('COMMENT_REPOSITORY.VERIFY_METHOD_NOT_IMPLEMENTED');
     await expect(commentRepository.deleteCommentById('')).rejects.toThrowError('COMMENT_REPOSITORY.DELETE_METHOD_NOT_IMPLEMENTED');
     await expect(commentRepository.verifyAvailableCommentInsideThread('')).rejects.toThrowError('COMMENT_REPOSITORY.VERIFY_INSIDE_THREAD_METHOD_NOT_IMPLEMENTED');
+    await expect(commentRepository.getCommentsByThreadId('')).rejects.toThrowError('COMMENT_REPOSITORY.GET_COMMENT_BY_ID_METHOD_NOT_IMPLEMENTED');
   });
 });
