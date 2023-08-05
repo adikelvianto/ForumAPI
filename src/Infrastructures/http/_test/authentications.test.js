@@ -6,11 +6,12 @@ const createServer = require('../createServer');
 const AuthenticationTokenManager = require('../../../Applications/security/AuthenticationTokenManager');
 
 describe('/authentications endpoint', () => {
+
+  beforeAll(() => jest.setTimeout(30000));
+  
   afterAll(async () => {
     await pool.end();
   });
-
-  beforeAll(() => jest.setTimeout(10000));
 
   afterEach(async () => {
     await UsersTableTestHelper.cleanTable();

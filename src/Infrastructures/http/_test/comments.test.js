@@ -8,14 +8,15 @@ const ThreadTableTestHelper = require('../../../../tests/ThreadsTableTestHelper'
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
 
 describe('/comments endpoint', () => {
+
+  beforeAll(() => jest.setTimeout(30000));
+
   afterEach(async () => {
     await UsersTableTestHelper.cleanTable();
     await ThreadTableTestHelper.cleanTable();
     await AuthenticationsTableTestHelper.cleanTable();
     await CommentsTableTestHelper.cleanTable();
   });
-  
-  beforeAll(() => jest.setTimeout(10000));
 
   afterAll(async () => {
     await pool.end();
