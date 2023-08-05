@@ -7,8 +7,8 @@ const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 
 describe('/threads endpoint', () => {
 
-  beforeAll(() => jest.setTimeout(10000));
-  
+  beforeEach(() => jest.setTimeout(20000));
+
   afterAll(async () => {
     await UsersTableTestHelper.cleanTable();
     await ThreadTableTestHelper.cleanTable();

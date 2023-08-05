@@ -9,7 +9,7 @@ const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelp
 
 describe('/comments endpoint', () => {
 
-  beforeAll(() => jest.setTimeout(30000));
+  beforeEach(() => jest.setTimeout(20000));
 
   afterEach(async () => {
     await UsersTableTestHelper.cleanTable();

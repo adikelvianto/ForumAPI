@@ -4,7 +4,7 @@ const BcryptEncryptionHelper = require('../BcryptPasswordHash');
 
 describe('BcryptEncryptionHelper', () => {
 
-  beforeAll(() => jest.setTimeout(30000));
+  beforeEach(() => jest.setTimeout(20000));
 
   describe('hash function', () => {
     it('should encrypt password correctly', async () => {

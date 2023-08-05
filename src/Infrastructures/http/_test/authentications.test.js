@@ -7,8 +7,8 @@ const AuthenticationTokenManager = require('../../../Applications/security/Authe
 
 describe('/authentications endpoint', () => {
 
-  beforeAll(() => jest.setTimeout(30000));
-  
+  beforeEach(() => jest.setTimeout(20000));
+
   afterAll(async () => {
     await pool.end();
   });
