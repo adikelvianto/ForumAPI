@@ -8,6 +8,8 @@ describe('/users endpoint', () => {
     await pool.end();
   });
 
+  beforeAll(() => jest.setTimeout(10000));
+  
   afterEach(async () => {
     await UsersTableTestHelper.cleanTable();
   });

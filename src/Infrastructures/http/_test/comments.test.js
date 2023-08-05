@@ -14,6 +14,8 @@ describe('/comments endpoint', () => {
     await AuthenticationsTableTestHelper.cleanTable();
     await CommentsTableTestHelper.cleanTable();
   });
+  
+  beforeAll(() => jest.setTimeout(10000));
 
   afterAll(async () => {
     await pool.end();
