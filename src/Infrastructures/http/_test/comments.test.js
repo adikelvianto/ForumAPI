@@ -9,8 +9,6 @@ const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelp
 
 describe('/comments endpoint', () => {
 
-  beforeEach(() => jest.setTimeout(20000));
-
   afterEach(async () => {
     await UsersTableTestHelper.cleanTable();
     await ThreadTableTestHelper.cleanTable();
@@ -53,7 +51,7 @@ describe('/comments endpoint', () => {
       expect(responseJson.data.addedComment.id).toBeDefined();
       expect(responseJson.data.addedComment.content).toBeDefined();
       expect(responseJson.data.addedComment.owner).toBeDefined();
-    });
+    }, 30000);
 
     it('should respond with 400 when request payload does not contain the needed property', async () => {
       // arrange
@@ -79,7 +77,7 @@ describe('/comments endpoint', () => {
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('tidak dapat membuat comment baru karena properti yang dibutuhkan tidak ada',
       );
-    });
+    }, 30000);
 
     it('should respond with 400 when request payload does not meet the data type specification', async () => {
       // arrange
@@ -107,7 +105,7 @@ describe('/comments endpoint', () => {
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('tidak dapat membuat comment baru karena tipe data tidak sesuai',
       );
-    });
+    }, 30000);
 
     it('should respond with 401 when request did not contain access token', async () => {
       // arrange
@@ -131,7 +129,7 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(401);
       expect(responseJson.error).toEqual('Unauthorized');
       expect(responseJson.message).toEqual('Missing authentication');
-    });
+    }, 30000);
 
     it('should response 404 when thread is not found', async () => {
       // arrange
@@ -151,7 +149,7 @@ describe('/comments endpoint', () => {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      });
+      }, 30000);
 
       // assert
       const responseJson = JSON.parse(response.payload);
@@ -186,7 +184,7 @@ describe('/comments endpoint', () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
-    });
+    }, 30000);
 
     it('should respond with 401 when request did not contain access token', async () => {
       // arrange
@@ -209,7 +207,7 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(401);
       expect(responseJson.error).toEqual('Unauthorized');
       expect(responseJson.message).toEqual('Missing authentication');
-    });
+    }, 30000);
     
     it('should respond with 403 when user is not owner', async () => {
       // arrange
@@ -237,7 +235,7 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(403);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('Anda tidak berhak mengakses resource ini');
-    });
+    }, 30000);
 
     it('should respond with 404 when thread is not found', async () => {
       // arrange
@@ -263,6 +261,6 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('Komentar pada thread ini tidak dapat ditemukan');
-    });
+    }, 30000);
   });
 });

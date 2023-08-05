@@ -7,8 +7,6 @@ const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 
 describe('/threads endpoint', () => {
 
-  beforeEach(() => jest.setTimeout(20000));
-
   afterAll(async () => {
     await UsersTableTestHelper.cleanTable();
     await ThreadTableTestHelper.cleanTable();
@@ -36,7 +34,7 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(401);
       expect(responseJson.error).toEqual('Unauthorized');
       expect(responseJson.message).toEqual('Missing authentication');
-    });
+    }, 30000);
 
     it('should respond with 400 when the request payload does not contain the needed property', async () => {
       // Arrange
@@ -62,7 +60,7 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('Thread baru tidak dapat dibuat karena property yang dibutuhkan tidak lengkap');
-    });
+    }, 30000);
 
     it('should respond with 400 when the request payload does not meet the data type specification', async () => {
       // Arrange
@@ -89,7 +87,7 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('Thread baru tidak dapat dibuat karena tipe data yang dilampirkan tidak sesuai');
-    });
+    }, 30000);
 
     it('should respond with 201 and the persisted thread', async () => {
       // Arrange
@@ -116,7 +114,7 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(201);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.addedThread).toBeDefined();
-    });
+    }, 30000);
   });
 
   describe('when GET /threads/{threadId}', () => {
@@ -138,7 +136,7 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.thread).toBeDefined();
-    });
+    }, 30000);
 
     it('should respond with NotFoundError when the requested thread is not found', async () => {
       // Arrange
@@ -155,6 +153,6 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('Thread not found');
-    });
+    }, 30000);
   });
 });

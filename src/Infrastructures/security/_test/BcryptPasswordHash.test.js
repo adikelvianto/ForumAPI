@@ -4,8 +4,6 @@ const BcryptEncryptionHelper = require('../BcryptPasswordHash');
 
 describe('BcryptEncryptionHelper', () => {
 
-  beforeEach(() => jest.setTimeout(20000));
-
   describe('hash function', () => {
     it('should encrypt password correctly', async () => {
       // Arrange
@@ -19,7 +17,7 @@ describe('BcryptEncryptionHelper', () => {
       expect(typeof encryptedPassword).toEqual('string');
       expect(encryptedPassword).not.toEqual('plain_password');
       expect(spyHash).toBeCalledWith('plain_password', 10); // 10 adalah nilai saltRound default untuk BcryptEncryptionHelper
-    });
+    }, 30000);
   });
 
   describe('comparePassword function', () => {
@@ -31,7 +29,7 @@ describe('BcryptEncryptionHelper', () => {
       await expect(bcryptEncryptionHelper.comparePassword('plain_password', 'encrypted_password'))
         .rejects
         .toThrow(AuthenticationError);
-    });
+    }, 30000);
 
     it('should not return AuthenticationError if password match', async () => {
       // Arrange
@@ -42,6 +40,6 @@ describe('BcryptEncryptionHelper', () => {
       // Act & Assert
       await expect(bcryptEncryptionHelper.comparePassword(plainPassword, encryptedPassword))
         .resolves.not.toThrow(AuthenticationError);
-    });
+    }, 30000);
   });
 });

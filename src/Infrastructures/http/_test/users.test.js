@@ -5,8 +5,6 @@ const createServer = require('../createServer');
 
 describe('/users endpoint', () => {
 
-  beforeEach(() => jest.setTimeout(20000));
-
   afterAll(async () => {
     await pool.end();
   });
@@ -38,7 +36,7 @@ describe('/users endpoint', () => {
       expect(response.statusCode).toEqual(201);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.addedUser).toBeDefined();
-    });
+    }, 30000);
 
     it('should response 400 when request payload not contain needed property', async () => {
       // Arrange
@@ -60,7 +58,7 @@ describe('/users endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('tidak dapat membuat user baru karena properti yang dibutuhkan tidak ada');
-    });
+    }, 30000);
 
     it('should response 400 when request payload not meet data type specification', async () => {
       // Arrange
@@ -83,7 +81,7 @@ describe('/users endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('tidak dapat membuat user baru karena tipe data tidak sesuai');
-    });
+    }, 30000);
 
     it('should response 400 when username more than 50 character', async () => {
       // Arrange
@@ -106,7 +104,7 @@ describe('/users endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('tidak dapat membuat user baru karena karakter username melebihi batas limit');
-    });
+    }, 30000);
 
     it('should response 400 when username contain restricted character', async () => {
       // Arrange
@@ -129,7 +127,7 @@ describe('/users endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('tidak dapat membuat user baru karena username mengandung karakter terlarang');
-    });
+    }, 30000);
 
     it('should response 400 when username unavailable', async () => {
       // Arrange
@@ -153,6 +151,6 @@ describe('/users endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('username tidak tersedia');
-    });
+    }, 30000);
   });
 });

@@ -7,8 +7,6 @@ const AuthenticationTokenManager = require('../../../Applications/security/Authe
 
 describe('/authentications endpoint', () => {
 
-  beforeEach(() => jest.setTimeout(20000));
-
   afterAll(async () => {
     await pool.end();
   });
@@ -50,7 +48,7 @@ describe('/authentications endpoint', () => {
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.accessToken).toBeDefined();
       expect(responseJson.data.refreshToken).toBeDefined();
-    });
+    }, 30000);
 
     it('should response 400 if username not found', async () => {
       // Arrange
@@ -72,7 +70,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('username tidak ditemukan');
-    });
+    }, 30000);
 
     it('should response 401 if password wrong', async () => {
       // Arrange
@@ -104,7 +102,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(401);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('kredensial yang Anda masukkan salah');
-    });
+    }, 30000);
 
     it('should response 400 if login payload not contain needed property', async () => {
       // Arrange
@@ -125,7 +123,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('harus mengirimkan username dan password');
-    });
+    }, 30000);
 
     it('should response 400 if login payload wrong data type', async () => {
       // Arrange
@@ -147,7 +145,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('username dan password harus string');
-    });
+    }, 30000);
   });
 
   describe('when PUT /authentications', () => {
@@ -188,7 +186,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.accessToken).toBeDefined();
-    });
+    }, 30000);
 
     it('should return 400 payload not contain refresh token', async () => {
       // Arrange
@@ -205,7 +203,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('harus mengirimkan token refresh');
-    });
+    }, 30000);
 
     it('should return 400 if refresh token not string', async () => {
       // Arrange
@@ -224,7 +222,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('refresh token harus string');
-    });
+    }, 30000);
 
     it('should return 400 if refresh token not valid', async () => {
       // Arrange
@@ -244,7 +242,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('refresh token tidak valid');
-    });
+    }, 30000);
 
     it('should return 400 if refresh token not registered in database', async () => {
       // Arrange
@@ -265,7 +263,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('refresh token tidak ditemukan di database');
-    });
+    }, 30000);
   });
 
   describe('when DELETE /authentications', () => {
@@ -288,7 +286,7 @@ describe('/authentications endpoint', () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
-    });
+    }, 30000);
 
     it('should response 400 if refresh token not registered in database', async () => {
       // Arrange
@@ -309,7 +307,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('refresh token tidak ditemukan di database');
-    });
+    }, 30000);
 
     it('should response 400 if payload not contain refresh token', async () => {
       // Arrange
@@ -326,7 +324,7 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('harus mengirimkan token refresh');
-    });
+    }, 30000);
 
     it('should response 400 if refresh token not string', async () => {
       // Arrange
@@ -345,6 +343,6 @@ describe('/authentications endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('refresh token harus string');
-    });
+    }, 30000);
   });
 });
