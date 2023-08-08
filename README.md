@@ -1,7 +1,7 @@
 # ForumAPI
 
-[![CI](https://github.com/adikelvianto/ForumAPI/actions/workflows/ci.yml/badge.svg)](https://github.com/adikelvianto/ForumAPI/actions/ci.yml)
-[![CD](https://github.com/adikelvianto/ForumAPI/actions/workflows/cd.yml/badge.svg)](https://github.com/adikelvianto/ForumAPI/actions/cd.yml)
+[![CI](https://github.com/adikelvianto/ForumAPI/actions/workflows/ci.yml/badge.svg)](https://github.com/adikelvianto/ForumAPI/actions/workflows/ci.yml)
+[![CD](https://github.com/adikelvianto/ForumAPI/actions/workflows/cd.yml/badge.svg)](https://github.com/adikelvianto/ForumAPI/actions/workflows/cd.yml)
 
 ForumAPI is a project developed to fulfill the requirements of the "Menjadi Back-End Developer Expert" course. 
 <br><br>
